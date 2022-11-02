@@ -5,10 +5,14 @@ defmodule ServerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api/v1/", ServerWeb do
+  scope "/api/v1", ServerWeb do
     pipe_through :api
 
+    post "/pools", PoolController, :create
+    # options "/pools", PoolController, :create
     get "/pools/count", PoolController, :count
+    get "/users/count", UserController, :count
+    get "/guesses/count", GuessController, :count
   end
 
   # Enables LiveDashboard only for development

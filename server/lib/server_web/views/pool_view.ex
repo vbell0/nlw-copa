@@ -1,9 +1,19 @@
 defmodule ServerWeb.PoolView do
   use ServerWeb, :view
 
-  def render("count.json", %{pools: pools}) do
+  def render("create.json", %{data: params}) do
     %{
-      count: pools
+      code: params.code
     }
+  end
+
+  def render("count.json", %{data: params}) do
+    %{
+      count: params
+    }
+  end
+
+  def render("error.json", %{errors: params}) do
+    %{errors: params}
   end
 end
