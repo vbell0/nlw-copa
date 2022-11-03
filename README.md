@@ -1,5 +1,5 @@
 ## `<NLW copa=""/>`
-Um evento para encentivar o conhecimento onde pude elvar o meu conhecimento geral sobre desenvolvimento web e mobile
+An event to encourage knowledge where I can increase my general knowledge about web and mobile development
 
 ## TECS
 - WEB - NextJS
