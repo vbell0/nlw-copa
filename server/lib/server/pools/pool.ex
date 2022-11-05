@@ -2,7 +2,7 @@ defmodule Server.Pool do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias Server.{Helper, User}
+  alias Server.User
 
   @params [:code, :title]
 
@@ -16,17 +16,18 @@ defmodule Server.Pool do
     timestamps()
   end
 
+  @doc false
   def changeset(pool, params) do
     pool
     |> cast(params, @params)
   end
 
+  @doc false
   def changeset(pool, params, user = %User{}) do
     pool
     |> cast(params, @params)
     |> put_assoc(:owner, user)
     |> validate_length(:title, min: 4)
-    # |> Helper.uuid_validate(params.owner_id)
     |> validate_required(@params)
   end
 end

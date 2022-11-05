@@ -1,4 +1,5 @@
 defmodule Server.Helper do
+  import Plug.Conn
   alias Ecto.Changeset
   @full_chars "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz123456789" |> String.split("")
 
@@ -29,5 +30,29 @@ defmodule Server.Helper do
       {:ok, uuid} -> uuid
       :error -> raise "Invalide uuid format"
     end
+  end
+
+  def get_token_from_header(conn) do
+    get_req_header(conn, "authorization")
+    |> case do
+      [] ->
+        conn |> not_autorization()
+
+      header ->
+        token =
+          header
+          |> List.first()
+          |> String.split()
+          |> validate_token(conn)
+
+        token
+    end
+  end
+
+  defp validate_token(auth, _conn) when length(auth) === 2, do: List.last(auth)
+  defp validate_token(_, conn), do: conn |> not_autorization()
+
+  def not_autorization(conn) do
+    conn |> send_resp(401, Jason.encode!(%{error: "Not authorization"}))
   end
 end

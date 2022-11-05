@@ -13,11 +13,13 @@ defmodule Server.Participant do
     belongs_to :pool, Pool
   end
 
+  @doc false
   def changeset(participant, params) do
     participant
     |> cast(params, @params)
   end
 
+  @doc false
   def changeset(participant, params, user = %User{}, pool = %Pool{}) do
     participant
     |> cast(params, @params)

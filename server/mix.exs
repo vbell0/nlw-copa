@@ -20,6 +20,7 @@ defmodule Server.MixProject do
   def application do
     [
       mod: {Server.Application, []},
+      # applications: [:guardian],
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -43,7 +44,10 @@ defmodule Server.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:gettext, "~> 0.20.0"},
-      {:cors_plug, "~> 3.0"}
+      {:cors_plug, "~> 3.0"},
+      {:tesla, "~> 1.4"},
+      {:hackney, "~> 1.17"},
+      {:joken, "~> 2.5"}
     ]
   end
 

@@ -26,7 +26,7 @@ defmodule Server.Repo.Migrations.Create do
       add :pool_id, references(:pool, type: :uuid)
     end
 
-    create table(:gamer, primary_key: false) do
+    create table(:game, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :date, :date
       add :fist_team_country_code, :string
@@ -37,14 +37,14 @@ defmodule Server.Repo.Migrations.Create do
       add :id, :binary_id, primary_key: true
       add :fist_team_points, :integer
       add :second_team_points, :integer
-      add :gamer_id, references(:gamer, type: :uuid)
+      add :game_id, references(:game, type: :uuid)
       add :participant_id, references(:participant, type: :uuid)
-      
+
       timestamps()
     end
 
-    create unique_index :pool, [:code]
-    create unique_index :user, [:email]
-    create unique_index :participant, [:user_id, :pool_id]
+    create unique_index(:pool, [:code])
+    create unique_index(:user, [:email])
+    create unique_index(:participant, [:user_id, :pool_id])
   end
 end
