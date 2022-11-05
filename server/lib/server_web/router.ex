@@ -5,14 +5,30 @@ defmodule ServerWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api/v1", ServerWeb do
+  pipeline :auth do
+    plug ServerWeb.JwtPlug
+  end
+
+  # Not Required login
+  scope "/api/v1/auth", ServerWeb do
     pipe_through :api
 
+    post "/", AuthController, :signin
+  end
+
+  # Required Login
+  scope "/api/v1", ServerWeb do
+    pipe_through [:api, :auth]
+
     post "/pools", PoolController, :create
-    # options "/pools", PoolController, :create
     get "/pools/count", PoolController, :count
+
     get "/users/count", UserController, :count
+    get "/auth", UserController, :get
+
     get "/guesses/count", GuessController, :count
+
+    delete "/auth", AuthController, :logout
   end
 
   # Enables LiveDashboard only for development

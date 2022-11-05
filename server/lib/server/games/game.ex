@@ -1,4 +1,4 @@
-defmodule Server.Gamer do
+defmodule Server.Game do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -6,14 +6,15 @@ defmodule Server.Gamer do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "gamer" do
+  schema "game" do
     field :date, :date
     field :fist_team_country_code, :string
     field :secound_team_country_code, :string
   end
 
-  def changeset(gamer, params) do
-    gamer
+  @doc false
+  def changeset(game, params) do
+    game
     |> cast(params, @params)
   end
 end
